@@ -2,12 +2,12 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import {Interpreter} from './components/Interpreter';
+import {Game} from './components/Game';
 
 function App() {
   return (
     <div className="App">
-      <Interpreter/>
+      <Game/>
     </div>
   );
 }
