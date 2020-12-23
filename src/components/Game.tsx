@@ -7,12 +7,13 @@ import AceEditor from "react-ace";
 // https://github.com/securingsincity/react-ace/issues/725#issuecomment-543109155
 
 import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/theme-github";
-
-
+import "ace-builds/src-noconflict/theme-monokai";
 
 export function Game() {
     const [code, setCode] = useState('');
+    const [worldData, setWorldData] = useState({
+        'world':[[]]
+    });
   
     function onChange(newValue: string) {
         setCode(newValue);
@@ -24,16 +25,11 @@ export function Game() {
     
     return(
         <div className="flex">
-            <div>
-
-                <GameCanvas/>
-            </div>
-
-
+            <GameCanvas/>
             <div>
                 <AceEditor
                     mode="python"
-                    theme="github"
+                    theme="monokai"
                     onChange={onChange}
                     name="UNIQUE_ID_OF_DIV"
                     editorProps={{ $blockScrolling: true }}
