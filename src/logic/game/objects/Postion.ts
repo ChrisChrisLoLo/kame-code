@@ -1,6 +1,6 @@
-export class Position{
-    constructor(
-        x: number,
-        y: number
-    ){}
+export class Position {
+  constructor(
+    x: number,
+    y: number
+  ) { }
 }
