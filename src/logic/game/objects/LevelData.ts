@@ -1,7 +1,7 @@
 import { TileType } from './TileType';
 import { Player, Flag } from './Entities';
 
-export class WorldData {
+export class LevelData {
   constructor(
     level: TileType[][],
     player: Player,

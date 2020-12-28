@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GameCanvas } from './GameCanvas'
+import { GameCanvas } from '../GameCanvas'
 
 import AceEditor from "react-ace";
 
@@ -9,18 +9,20 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-monokai";
 
+import { runInterpreter } from '../../logic/tslox/lox';
+
 export function Game() {
   const [code, setCode] = useState('');
   const [worldData, setWorldData] = useState({
     'world': [[]]
   });
 
-  function onChange(newValue: string) {
+  function onEditorChange(newValue: string) {
     setCode(newValue);
   }
 
   function runCode() {
-    alert(code);
+    runInterpreter(code);
   }
 
   return (
@@ -30,13 +32,13 @@ export function Game() {
         <AceEditor
           mode="python"
           theme="monokai"
-          onChange={onChange}
+          onChange={onEditorChange}
           name="UNIQUE_ID_OF_DIV"
           editorProps={{ $blockScrolling: true }}
         />
         <button onClick={runCode} className="bg-green-200">
           Run
-                </button>
+        </button>
       </div>
     </div>
   )

@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import {Game} from './features/Game';
+import {Game} from './features/game/Game';
 
 function App() {
   return (
