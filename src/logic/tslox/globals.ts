@@ -25,7 +25,7 @@ globals.define(
   "forward",
   new class extends Callable {
     getArity() {
-      return 1
+      return 0
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {

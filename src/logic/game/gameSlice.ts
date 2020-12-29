@@ -5,6 +5,7 @@ import { Player, Flag } from './objects/Entities';
 import { LevelData } from './objects/LevelData';
 import { TileType } from './objects/TileType';
 import { calcForward } from './reducers';
+import { forwardReducer } from './reducers/Entities';
 
 // const initState: LevelData = new LevelData(
 //     [
@@ -21,13 +22,7 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState: sampleLevel,
     reducers: {
-        forward: state => {
-            const newState: LevelData = JSON.parse(JSON.stringify(state));
-
-            newState.player.pos = {...calcForward(newState.player.dir, newState.player.pos)};
-
-            return newState
-        }
+        forward: forwardReducer
         // },
         // backward: state => {
         //     state = "d"
