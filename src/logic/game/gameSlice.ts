@@ -3,7 +3,7 @@ import { jsonify } from '../utils';
 import { sampleLevel } from './levels/sampleLevel';
 import { LevelData } from './objects/LevelData';
 
-import { forwardReducer, backwardReducer } from './reducers/playerMovement';
+import { forwardReducer, backwardReducer, rotClockwiseReducer, rotCounterClockwiseReducer } from './reducers/playerMovement';
 
 // const initState: LevelData = new LevelData(
 //     [
@@ -18,14 +18,13 @@ import { forwardReducer, backwardReducer } from './reducers/playerMovement';
 
 export const gameSlice = createSlice({
     name: 'game',
-    initialState: <LevelData>jsonify(sampleLevel),
+    initialState: jsonify(sampleLevel),
     reducers: {
         forward: forwardReducer,
-        backward: backwardReducer
-        // },
-        // backward: state => {
-        //     state = "d"
-        // },
+        backward: backwardReducer,
+        rotClockwise: rotClockwiseReducer,
+        rotCounterClockwise: rotCounterClockwiseReducer
+        // rotClockwise:
         // rotClockwise: state => {
         //     state = "d"
         // },
@@ -51,7 +50,8 @@ export const gameSlice = createSlice({
 //     readTile, writeTile
 // } = gameSlice.actions;
 export const { 
-        forward, backward
+        forward, backward,
+        rotClockwise, rotCounterClockwise
     } = gameSlice.actions;
 
 export default gameSlice.reducer;
