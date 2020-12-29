@@ -3,8 +3,8 @@ import { Callable } from "./callable"
 import { Interpreter, LoxValue } from "./interpreter"
 
 import store from "../../app/store"
-import gameSlice from "../../features/game/gameSlice"
-import { forward } from "../../features/game/gameSlice"
+import gameSlice from "../game/gameSlice"
+import { forward } from "../game/gameSlice"
 
 const globals = new Environment()
 
@@ -31,7 +31,7 @@ globals.define(
     call(interpreter: Interpreter, args: LoxValue[]) {
       // console.log(gameSlice.reducer({value: 2},forward))
       store.dispatch(forward())
-      return "forward"
+      return 1
     }
   }()
 )

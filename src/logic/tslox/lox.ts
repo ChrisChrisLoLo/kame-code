@@ -133,12 +133,21 @@ function run(
                   return ExitCode.Ok
                 },
                 fail: error => {
-                  report(
-                    error.token.line,
-                    `at "${error.token.lexeme}"`,
-                    error.message
-                  )
-                  return ExitCode.RuntimeError
+                  // TODO: ensure errors are not JS errors
+                  // may need to remove this conditional
+                  if(error.token){
+                    report(
+                      error.token.line,
+                      `at "${error.token.lexeme}"`,
+                      error.message
+                    )
+                    return ExitCode.RuntimeError
+                  }
+                  else{
+                    // JS error
+                    console.error(error)
+                    return ExitCode.RuntimeError
+                  }
                 }
               })
             },

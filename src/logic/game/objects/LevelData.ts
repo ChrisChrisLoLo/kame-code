@@ -2,9 +2,13 @@ import { TileType } from './TileType';
 import { Player, Flag } from './Entities';
 
 export class LevelData {
-  constructor(
-    level: TileType[][],
-    player: Player,
-    flags: Flag[]
-  ) { };
+  level: TileType[][]
+  player: Player
+  flags: Flag[]
+
+  constructor(level: TileType[][], player: Player, flags: Flag[]){
+    this.level = level;
+    this.player = player;
+    this.flags = flags;
+  };
 }

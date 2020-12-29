@@ -7,4 +7,4 @@ export enum DirectionType {
 
 // used to calculate rotations
 export let directionArray: DirectionType[] =
-  [DirectionType.NORTH, DirectionType.EAST, DirectionType.SOUTH, DirectionType.WEST];
+  [DirectionType.NORTH, DirectionType.EAST, DirectionType.SOUTH, DirectionType.WEST]
