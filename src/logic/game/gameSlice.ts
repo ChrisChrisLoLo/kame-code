@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { jsonify } from '../utils';
 import { sampleLevel } from './levels/sampleLevel';
+import { LevelData } from './objects/LevelData';
 
-import { forwardReducer } from './reducers/playerMovement';
+import { forwardReducer, backwardReducer } from './reducers/playerMovement';
 
 // const initState: LevelData = new LevelData(
 //     [
@@ -16,9 +18,10 @@ import { forwardReducer } from './reducers/playerMovement';
 
 export const gameSlice = createSlice({
     name: 'game',
-    initialState: sampleLevel,
+    initialState: <LevelData>jsonify(sampleLevel),
     reducers: {
-        forward: forwardReducer
+        forward: forwardReducer,
+        backward: backwardReducer
         // },
         // backward: state => {
         //     state = "d"
@@ -48,7 +51,7 @@ export const gameSlice = createSlice({
 //     readTile, writeTile
 // } = gameSlice.actions;
 export const { 
-        forward
+        forward, backward
     } = gameSlice.actions;
 
 export default gameSlice.reducer;

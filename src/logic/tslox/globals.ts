@@ -4,7 +4,7 @@ import { Interpreter, LoxValue } from "./interpreter"
 
 import store from "../../app/store"
 import gameSlice from "../game/gameSlice"
-import { forward } from "../game/gameSlice"
+import { forward, backward } from "../game/gameSlice"
 
 const globals = new Environment()
 
@@ -29,11 +29,36 @@ globals.define(
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      // console.log(gameSlice.reducer({value: 2},forward))
-      store.dispatch(forward())
-      return 1
+      return makeMovement(false);
     }
   }()
 )
+
+globals.define(
+  "backward",
+  new class extends Callable {
+    getArity() {
+      return 0
+    }
+
+    call(interpreter: Interpreter, args: LoxValue[]) {
+      return makeMovement(true);
+    }
+  }()
+)
+
+/**
+ * Make movement, return if the movement was successful
+ * @param isBackward 
+ */
+function makeMovement(isBackward: boolean): boolean{
+  const initPosition = store.getState().gameState.player.pos
+  const movementFunc = isBackward ? backward : forward
+
+  store.dispatch(movementFunc())
+  const didMove: boolean = JSON.stringify(initPosition) != JSON.stringify(store.getState().gameState.player.pos)
+
+  return didMove
+}
 
 export { globals }

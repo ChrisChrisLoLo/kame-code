@@ -1,12 +1,20 @@
 import { LevelData } from "../objects/LevelData";
 import { Position } from "../objects/Postion";
 import { TileType } from "../objects/TileType";
-import { calcForward } from "../reducers";
+import { calcMovement } from "../reducers";
 
 export function forwardReducer(state: LevelData): LevelData {
+  return movementReducer(state, false)
+}
+
+export function backwardReducer(state: LevelData): LevelData {
+  return movementReducer(state, true)
+}
+
+function movementReducer(state: LevelData, isBackwards: boolean){
   const newState: LevelData = JSON.parse(JSON.stringify(state))
 
-  newState.player.pos = { ...calcForward(newState.player.dir, newState.player.pos) }
+  newState.player.pos = { ...calcMovement(newState.player.dir, newState.player.pos, isBackwards) }
 
   if (isValidPlayerPosition(newState.player.pos, newState.level)) {
     return newState
