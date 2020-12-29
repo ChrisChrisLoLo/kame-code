@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { sampleLevel } from './levels/sampleLevel';
-import { DirectionType } from './objects/Directions';
-import { Player, Flag } from './objects/Entities';
-import { LevelData } from './objects/LevelData';
-import { TileType } from './objects/TileType';
-import { calcForward } from './reducers';
-import { forwardReducer } from './reducers/Entities';
+
+import { forwardReducer } from './reducers/playerMovement';
 
 // const initState: LevelData = new LevelData(
 //     [
