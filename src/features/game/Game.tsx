@@ -10,6 +10,8 @@ import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-monokai";
 
 import { runInterpreter } from '../../logic/tslox/lox';
+import store from '../../app/store';
+import { setLevelData } from '../../logic/game/gameSlice';
 
 export function Game() {
   const [code, setCode] = useState('');
@@ -22,6 +24,7 @@ export function Game() {
   }
 
   function runCode() {
+    store.dispatch(setLevelData(store.getState().metaGameState.loadedLevel));
     runInterpreter(code);
   }
 

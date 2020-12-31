@@ -3,7 +3,7 @@ import { Callable } from "./callable"
 import { Interpreter, LoxValue } from "./interpreter"
 
 import store from "../../app/store"
-import gameSlice, { rotClockwise, rotCounterClockwise } from "../game/gameSlice"
+import { rotClockwise, rotCounterClockwise } from "../game/gameSlice"
 import { forward, backward } from "../game/gameSlice"
 
 const globals = new Environment()
