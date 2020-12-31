@@ -1,4 +1,4 @@
-import { jsonify } from "../../utils";
+import { isDeepEquality, jsonify } from "../../utils";
 import { DirectionType, directionArray } from "../objects/Directions";
 import { LevelData } from "../objects/LevelData";
 import { Position } from "../objects/Postion";
@@ -18,24 +18,16 @@ function movementReducer(state: LevelData, isBackwards: boolean){
   newState.player.pos = { ...calcMovement(newState.player.dir, newState.player.pos, isBackwards) }
 
   if (isValidPlayerPosition(newState.player.pos, newState.level)) {
-    return newState
+    const updatedState: LevelData = removeFlags(newState)
+    return updatedState
   } else {
     return state
   }
 }
 
-export function rotClockwiseReducer(state: LevelData): LevelData {
-  return rotationReducer(state, false);
-}
-
-export function rotCounterClockwiseReducer(state: LevelData): LevelData {
-  return rotationReducer(state, true);
-}
-
-function rotationReducer(state: LevelData, isCounterClockwise: boolean): LevelData{
-  const newState: LevelData = JSON.parse(JSON.stringify(state))
-  newState.player.dir = calcRotation(newState.player.dir, isCounterClockwise) 
-  return newState
+function removeFlags(state: LevelData): LevelData{
+  state.flags = state.flags.filter(flag => !isDeepEquality(flag.pos,state.player.pos))
+  return state
 }
 
 /**
@@ -57,7 +49,7 @@ function isValidPlayerPosition(playerPos: Position, level: TileType[][]): boolea
   return false
 }
 
-export function calcMovement(dir: DirectionType, pos: Position, isBackwards: boolean): Position {
+function calcMovement(dir: DirectionType, pos: Position, isBackwards: boolean): Position {
 
   const direction: number = isBackwards ? -1 : 1
 
@@ -71,20 +63,23 @@ export function calcMovement(dir: DirectionType, pos: Position, isBackwards: boo
     case DirectionType.WEST:
       return new Position(pos.x - direction, pos.y)
     default:
-      throw new Error("Invalid position set");
+      throw new Error("Invalid position set")
   }
 }
 
-export function calcRotation(dir: DirectionType, isCounterClockwise: boolean): DirectionType {
-  const rotation: number = isCounterClockwise ? -1 : 1
-  return directionArray[mod((directionArray.indexOf(dir) + rotation), directionArray.length)]
-}
 
-/**
- * Use remainder operator to calculate modulo
- * @param n 
- * @param m 
- */
-function mod(n: number, m: number): number {
-  return ((n % m) + m) % m;
-}
+// export function writeTileReducer(state: LevelData): LevelData{
+//   const newState: LevelData = jsonify(state)
+//   newState.player
+//   return newState
+// }
+
+// export function readTileReducer(state: LevelData): LevelData{
+//   const newState: LevelData = jsonify(state)
+//   return newState
+// }
+
+// function tileReducer(state: LevelData, isRead: boolean): LevelData {
+//   const newState: LevelData = jsonify(state)
+//   return newState
+// }

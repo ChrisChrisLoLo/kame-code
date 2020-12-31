@@ -37,9 +37,9 @@ export class Player {
 }
 
 export class Flag {
-  position: Position
+  pos: Position
 
-  constructor(position: Position){
-    this.position = position
+  constructor(pos: Position){
+    this.pos = pos
   }
 }
