@@ -26,7 +26,9 @@ function movementReducer(state: LevelData, isBackwards: boolean){
 }
 
 function removeFlags(state: LevelData): LevelData{
-  state.flags = state.flags.filter(flag => !isDeepEquality(flag.pos,state.player.pos))
+  if(state.flags){
+    state.flags = state.flags.filter(flag => !isDeepEquality(flag.pos,state.player.pos))
+  }
   return state
 }
 
