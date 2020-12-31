@@ -5,6 +5,7 @@ export class LevelData {
   level: TileType[][]
   player: Player
   flags: Flag[]
+  // winCondition: WinCondType
 
   constructor(level: TileType[][], player: Player, flags: Flag[]){
     this.level = level;
