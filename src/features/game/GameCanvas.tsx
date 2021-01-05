@@ -1,8 +1,14 @@
 import React from 'react';
 
 import { Stage, Sprite, Container } from '@inlet/react-pixi';
+import { settings, SCALE_MODES} from 'pixi.js';
 import { connect, ConnectedProps, RootStateOrAny } from 'react-redux';
 import { LevelData } from '../../logic/game/objects/LevelData';
+
+import sprites from './assets/turtl/sprites';
+
+// Disable interpolation when scaling, will make texture be pixelated
+settings.SCALE_MODE = SCALE_MODES.NEAREST;
 
 interface StateProps {
   gameState: LevelData
@@ -23,7 +29,7 @@ interface Props extends PropsFromRedux {}
 const STAGE_WIDTH: number = 1200
 const STAGE_HEIGHT: number = 800
 
-const TILE_WIDTH: number = 50
+const TILE_WIDTH: number = 64
 
 const CONTAINER_PADDING_X = 50
 const CONTAINER_PADDING_Y = 50
@@ -43,13 +49,13 @@ function GameCanvas(props:Props) {
 
   return (
     <div>
-      <Stage width={STAGE_WIDTH} height={STAGE_HEIGHT} style={{ width: '100%' }} options={{ backgroundColor: 0xeef1f5 }}>
+      <Stage width={STAGE_WIDTH} height={STAGE_HEIGHT} style={{ width: '100%' }} options={{ backgroundColor: 0xeef1f5,  }}>
         <Container position={[CONTAINER_PADDING_X,CONTAINER_PADDING_Y]}>
           <Sprite
-            image="tile_red.pnd"
-            height={TILE_WIDTH}
-            width={TILE_WIDTH}
-            anchor={0.5}
+            image= {sprites.turtle}
+            scale = {4}
+            // height={TILE_WIDTH}
+            // width={TILE_WIDTH}
             x={0}
             y={0}
           />
