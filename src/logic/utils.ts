@@ -2,7 +2,7 @@
  * Convert any TS object into a plan JS object. Redux does not play nicely with TS objects.
  * @param object Any TS object
  */
-export function jsonify(object: object){
+export function deepCopy(object: object){
   return JSON.parse(JSON.stringify(object))
 }
 

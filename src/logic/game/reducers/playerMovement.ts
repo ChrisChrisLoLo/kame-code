@@ -1,4 +1,4 @@
-import { isDeepEquality, jsonify } from "../../utils";
+import { isDeepEquality, deepCopy } from "../../utils";
 import { DirectionType, directionArray } from "../objects/Directions";
 import { LevelData } from "../objects/LevelData";
 import { Position } from "../objects/Postion";
@@ -13,7 +13,7 @@ export function backwardReducer(state: LevelData): LevelData {
 }
 
 function movementReducer(state: LevelData, isBackwards: boolean){
-  const newState: LevelData = jsonify(state)
+  const newState: LevelData = deepCopy(state);
 
   newState.player.pos = { ...calcMovement(newState.player.dir, newState.player.pos, isBackwards) }
 
@@ -57,13 +57,13 @@ function calcMovement(dir: DirectionType, pos: Position, isBackwards: boolean): 
 
   switch (dir) {
     case DirectionType.NORTH:
-      return new Position(pos.x, pos.y - direction)
+      return {x: pos.x, y: pos.y - direction}
     case DirectionType.EAST:
-      return new Position(pos.x + direction, pos.y)
+      return {x: pos.x + direction, y: pos.y}
     case DirectionType.SOUTH:
-      return new Position(pos.x, pos.y + direction)
+      return {x: pos.x, y: pos.y + direction}
     case DirectionType.WEST:
-      return new Position(pos.x - direction, pos.y)
+      return {x: pos.x - direction, y: pos.y}
     default:
       throw new Error("Invalid position set")
   }
@@ -71,17 +71,17 @@ function calcMovement(dir: DirectionType, pos: Position, isBackwards: boolean): 
 
 
 // export function writeTileReducer(state: LevelData): LevelData{
-//   const newState: LevelData = jsonify(state)
+//   const newState: LevelData = deepCopy(state)
 //   newState.player
 //   return newState
 // }
 
 // export function readTileReducer(state: LevelData): LevelData{
-//   const newState: LevelData = jsonify(state)
+//   const newState: LevelData = deepCopy(state)
 //   return newState
 // }
 
 // function tileReducer(state: LevelData, isRead: boolean): LevelData {
-//   const newState: LevelData = jsonify(state)
+//   const newState: LevelData = deepCopy(state)
 //   return newState
 // }

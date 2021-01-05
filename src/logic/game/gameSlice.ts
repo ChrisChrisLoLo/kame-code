@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { jsonify } from '../utils'
 import { sampleLevel } from './levels/sampleLevel'
 import { LevelData } from './objects/LevelData'
 
@@ -9,7 +8,7 @@ import { setLevelDataReducer } from './reducers/setLevel'
 
 export const gameSlice = createSlice({
     name: 'game',
-    initialState: jsonify(sampleLevel) as LevelData,
+    initialState: sampleLevel as LevelData,
     reducers: {
         forward: forwardReducer,
         backward: backwardReducer,

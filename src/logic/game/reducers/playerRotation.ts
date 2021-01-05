@@ -1,4 +1,4 @@
-import { jsonify } from "../../utils";
+import { deepCopy } from "../../utils";
 import { DirectionType, directionArray } from "../objects/Directions";
 import { LevelData } from "../objects/LevelData";
 
@@ -11,7 +11,7 @@ export function rotCounterClockwiseReducer(state: LevelData): LevelData {
 }
 
 function rotationReducer(state: LevelData, isCounterClockwise: boolean): LevelData {
-  const newState: LevelData = jsonify((state))
+  const newState: LevelData = deepCopy((state))
   newState.player.dir = calcRotation(newState.player.dir, isCounterClockwise) 
   return newState
 }

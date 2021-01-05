@@ -1,11 +1,6 @@
 import { LevelData } from "./LevelData";
 
-export class MetaGame{
+export interface MetaGame{
   loadedLevel: LevelData
   hasWon: boolean
-
-  constructor(loadedLevel: LevelData, hasWon: boolean = false){
-    this.loadedLevel = loadedLevel
-    this.hasWon = hasWon
-  }
 }

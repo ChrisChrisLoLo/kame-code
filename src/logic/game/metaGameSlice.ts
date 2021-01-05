@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { jsonify } from "../utils";
 import { sampleLevel } from "./levels/sampleLevel";
 import { MetaGame } from "./objects/MetaGame";
 
 export const metaGameSlice = createSlice({
   name: 'game',
-  initialState: jsonify(new MetaGame(sampleLevel)) as MetaGame,
+  initialState: {loadedLevel: sampleLevel, hasWon: false} as MetaGame,
   reducers: {
   }
 });
