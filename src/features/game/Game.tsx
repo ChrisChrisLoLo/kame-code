@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GameCanvas } from '../GameCanvas'
+import GameCanvas from '../GameCanvas'
 
 import AceEditor from "react-ace";
 
@@ -30,7 +30,7 @@ export function Game() {
 
   return (
     <div className="flex">
-      <GameCanvas />
+      <GameCanvas/>
       <div>
         <AceEditor
           mode="python"
