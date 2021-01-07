@@ -1,7 +1,7 @@
 import { Environment } from "./environment"
 import { Callable } from "./callable"
 import { Interpreter, LoxValue } from "./interpreter"
-import { makeMovement, makeTurn } from "../game/actions/playerActions"
+import { dispatchAndRecord, makeMovement, makeTurn } from "../game/actions/playerActions"
 
 const globals = new Environment()
 
@@ -26,7 +26,7 @@ globals.define(
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return makeMovement(false);
+      return dispatchAndRecord(() => makeMovement(false))
     }
   }()
 )
@@ -39,7 +39,7 @@ globals.define(
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return makeMovement(true);
+      return dispatchAndRecord(() => makeMovement(true))
     }
   }()
 )
@@ -52,7 +52,7 @@ globals.define(
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return makeTurn(false);
+      return dispatchAndRecord(() => makeTurn(false))
     }
   }()
 )
@@ -65,7 +65,7 @@ globals.define(
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return makeTurn(true);
+      return dispatchAndRecord(() => makeTurn(true))
     }
   }()
 )

@@ -1,5 +1,6 @@
 import store from "../../../app/store"
 import { backward, forward, rotCounterClockwise, rotClockwise } from "../gameSlice"
+import { addLevelData } from "../playbackQueueSlice"
 
 /**
  * Make movement, return true if the movement was successful
@@ -28,3 +29,11 @@ export function makeTurn(isCounterClockwise: boolean): boolean{
   return true
 }
 
+/**
+ * Executes a function and then records the resulting level state
+ */
+export function dispatchAndRecord(toExecute: Function): any{
+  const result = toExecute()
+  store.dispatch(addLevelData(store.getState().gameState))
+  return result
+}
