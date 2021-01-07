@@ -12,22 +12,33 @@ import "ace-builds/src-noconflict/theme-monokai";
 import { runInterpreter } from '../../logic/tslox/lox';
 import store from '../../app/store';
 import { setLevelData } from '../../logic/game/gameSlice';
-import { clearQueue } from '../../logic/game/playbackQueueSlice';
+import { addLevelData, clearQueue } from '../../logic/game/playbackQueueSlice';
+import { playRecordedLevelStates } from '../../logic/replay/replayQueue';
+import { setDisplayLevelData } from '../../logic/game/gameDisplaySlice';
 
 export function Game() {
   const [code, setCode] = useState('');
-  const [worldData, setWorldData] = useState({
-    'world': [[]]
-  });
 
   function onEditorChange(newValue: string) {
     setCode(newValue);
   }
 
-  function runCode() {
-    store.dispatch(clearQueue())
+  async function runCode() {
     store.dispatch(setLevelData(store.getState().metaGameState.loadedLevel))
+    store.dispatch(setDisplayLevelData(store.getState().metaGameState.loadedLevel))
+
+    store.dispatch(clearQueue())
+
+    store.dispatch(addLevelData(store.getState().gameState))
+
     runInterpreter(code)
+    playRecordedLevelStates()
+  }
+
+  function test(){
+    for(let i = 0; i < 1000;i++){
+      console.log(i);
+    }
   }
 
   return (
@@ -44,6 +55,9 @@ export function Game() {
         <button onClick={runCode} className="bg-green-200">
           Run
         </button>
+        {/* <button onClick={test} className="bg-green-200">
+          Run
+        </button> */}
       </div>
     </div>
   )

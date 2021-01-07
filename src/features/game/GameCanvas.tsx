@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Stage, Sprite, Container } from '@inlet/react-pixi';
 import { settings, SCALE_MODES} from 'pixi.js';
-import { connect, ConnectedProps, RootStateOrAny } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { LevelData } from '../../logic/game/objects/LevelData';
 import { sprites, tileSpriteEnumMap, turtleAngleDirMap } from './assets/turtl/sprites';
 
@@ -10,12 +10,12 @@ import { sprites, tileSpriteEnumMap, turtleAngleDirMap } from './assets/turtl/sp
 settings.SCALE_MODE = SCALE_MODES.NEAREST;
 
 interface StateProps {
-  gameState: LevelData
+  gameDisplay: LevelData
 }
 
 function mapStateToProps(state: StateProps) {
   console.log(state)
-  const levelData = state.gameState
+  const levelData = state.gameDisplay
   return levelData
 }
 
