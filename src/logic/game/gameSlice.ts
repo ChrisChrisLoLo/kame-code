@@ -20,11 +20,6 @@ export const gameSlice = createSlice({
     }
 });
 
-// export const { 
-//     forward, backward,
-//     rotClockwise, rotCounterClockwise,
-//     readTile, writeTile
-// } = gameSlice.actions;
 export const { 
         forward, backward,
         rotClockwise, rotCounterClockwise,

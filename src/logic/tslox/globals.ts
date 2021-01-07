@@ -1,10 +1,7 @@
 import { Environment } from "./environment"
 import { Callable } from "./callable"
 import { Interpreter, LoxValue } from "./interpreter"
-
-import store from "../../app/store"
-import { rotClockwise, rotCounterClockwise } from "../game/gameSlice"
-import { forward, backward } from "../game/gameSlice"
+import { makeMovement, makeTurn } from "../game/actions/playerActions"
 
 const globals = new Environment()
 
@@ -47,20 +44,6 @@ globals.define(
   }()
 )
 
-/**
- * Make movement, return true if the movement was successful
- * @param isBackward 
- */
-function makeMovement(isBackward: boolean): boolean{
-  const initPosition = store.getState().gameState.player.pos
-  const movementFunc = isBackward ? backward : forward
-
-  store.dispatch(movementFunc())
-  const didMove: boolean = JSON.stringify(initPosition) != JSON.stringify(store.getState().gameState.player.pos)
-
-  return didMove
-}
-
 globals.define(
   "turnRight",
   new class extends Callable {
@@ -86,18 +69,5 @@ globals.define(
     }
   }()
 )
-
-/**
- * Make rotation, return true if successful
- * @param isCounterClockwise 
- */
-function makeTurn(isCounterClockwise: boolean): boolean{
-  const initPosition = store.getState().gameState.player.pos
-  const rotationFunc = isCounterClockwise ? rotCounterClockwise : rotClockwise
-
-  store.dispatch(rotationFunc())
-
-  return true
-}
 
 export { globals }

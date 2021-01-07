@@ -84,7 +84,7 @@ function GameCanvas(props:Props) {
     pivot={[SPRITE_IMAGE_PX/2,SPRITE_IMAGE_PX/2]}
     angle={turtleAngleDirMap.get(props.player.dir)}
     zIndex = {10}
-  />              
+  />
             
   return (
     <div>
@@ -93,7 +93,6 @@ function GameCanvas(props:Props) {
           {tileSprites}
           {flagSprites}
           {turtleSprite}
-          
         </Container>
       </Stage>
     </div>
