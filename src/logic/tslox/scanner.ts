@@ -149,9 +149,10 @@ export class Scanner {
       case "\n":
         this.line += 1
         break
-
+      
+      case "'":
       case '"':
-        this.scanString()
+        this.scanString(c)
         break
 
       default:
@@ -165,8 +166,8 @@ export class Scanner {
     }
   }
 
-  private scanString(): void {
-    while (this.peek() !== '"' && !this.isAtEnd()) {
+  private scanString(quoteChar: string): void {
+    while (this.peek() !== quoteChar && !this.isAtEnd()) {
       if (this.peek() === "\n") {
         this.line += 1
       }
