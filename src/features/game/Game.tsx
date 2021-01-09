@@ -24,21 +24,18 @@ export function Game() {
   }
 
   async function runCode() {
+    // reset level
     store.dispatch(setLevelData(store.getState().metaGameState.loadedLevel))
+    // reset display
     store.dispatch(setDisplayLevelData(store.getState().metaGameState.loadedLevel))
-
+    // reset queue
     store.dispatch(clearQueue())
-
+    // add initial state to the queue
     store.dispatch(addLevelData(store.getState().gameState))
 
     runInterpreter(code)
     playRecordedLevelStates()
-  }
-
-  function test(){
-    for(let i = 0; i < 1000;i++){
-      console.log(i);
-    }
+    // TODO: when at the end of the queue determine if the victory state has been acheived.
   }
 
   return (
