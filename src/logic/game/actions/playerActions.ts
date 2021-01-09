@@ -1,5 +1,5 @@
 import store from "../../../app/store"
-import { backward, forward, rotCounterClockwise, rotClockwise } from "../gameSlice"
+import { backward, forward, rotCounterClockwise, rotClockwise, writeBelow } from "../gameSlice"
 import { TileType } from "../objects/TileType"
 import { addLevelData } from "../playbackQueueSlice"
 
@@ -51,7 +51,7 @@ export function writeTileBelow(inputTile: string): boolean{
 
   const tile: TileType = (<any>TileType)[inputTile.toUpperCase()]
 
-  store.dispatch(()=>store.dispatch(writeTileBelow()))
+  dispatchAndRecord(()=>store.dispatch(writeBelow(tile)))
 
   return true
 }

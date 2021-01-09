@@ -1,7 +1,7 @@
 import { Environment } from "./environment"
 import { Callable } from "./callable"
-import { Interpreter, LoxValue } from "./interpreter"
-import { dispatchAndRecord, makeMovement, makeTurn } from "../game/actions/playerActions"
+import { Interpreter, LoxValue, RuntimeError } from "./interpreter"
+import { dispatchAndRecord, makeMovement, makeTurn, readTileBelow, writeTileBelow } from "../game/actions/playerActions"
 
 const globals = new Environment()
 
@@ -71,27 +71,30 @@ globals.define(
 )
 
 globals.define(
-  "readTile",
+  "readBelow",
   new class extends Callable {
     getArity() {
       return 0
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return makeTurn(true)
+      return readTileBelow()
     }
   }()
 )
 
 globals.define(
-  "writeTile",
+  "writeBelow",
   new class extends Callable {
     getArity() {
       return 1
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return makeTurn(true)
+      if (typeof args[0] != 'string') {
+        throw new Error(`writeBelow: ${args[0]} is not a string`)
+      }
+      return writeTileBelow(args[0])
     }
   }()
 )

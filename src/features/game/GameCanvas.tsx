@@ -14,7 +14,6 @@ interface StateProps {
 }
 
 function mapStateToProps(state: StateProps) {
-  console.log(state)
   const levelData = state.gameDisplay
   return levelData
 }
@@ -70,8 +69,8 @@ function GameCanvas(props:Props) {
     />
   ) : null;
 
-  console.log(props.flags)
-  console.log(flagSprites)
+  // console.log(props.flags)
+  // console.log(flagSprites)
 
   // pivot is required to rotate sprite around the center
   // pivot is placed in the center of the sprite before scaling

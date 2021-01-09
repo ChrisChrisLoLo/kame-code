@@ -1,11 +1,12 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { deepCopy } from "../../utils";
-import { DirectionType, directionArray } from "../objects/Directions";
 import { LevelData } from "../objects/LevelData";
+import { TileType } from "../objects/TileType";
 
-export function writeToBoardReducer(state: LevelData, action: PayloadAction<string>): LevelData {
+export function writeBelowReducer(state: LevelData, action: PayloadAction<TileType>): LevelData {
     const newState: LevelData = deepCopy(state)
-    // newState.level newState.player.pos
+    const playerPos = newState.player.pos
+    newState.level[playerPos.y][playerPos.x] = action.payload
     return newState
 }
 
