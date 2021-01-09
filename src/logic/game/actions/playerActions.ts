@@ -1,5 +1,6 @@
 import store from "../../../app/store"
 import { backward, forward, rotCounterClockwise, rotClockwise } from "../gameSlice"
+import { TileType } from "../objects/TileType"
 import { addLevelData } from "../playbackQueueSlice"
 
 /**
@@ -10,7 +11,7 @@ export function makeMovement(isBackward: boolean): boolean{
   const initPosition = store.getState().gameState.player.pos
   const movementFunc = isBackward ? backward : forward
 
-  store.dispatch(movementFunc())
+  dispatchAndRecord(()=>store.dispatch(movementFunc()))
   const didMove: boolean = JSON.stringify(initPosition) != JSON.stringify(store.getState().gameState.player.pos)
 
   return didMove
@@ -24,7 +25,33 @@ export function makeTurn(isCounterClockwise: boolean): boolean{
   const initPosition = store.getState().gameState.player.pos
   const rotationFunc = isCounterClockwise ? rotCounterClockwise : rotClockwise
 
-  store.dispatch(rotationFunc())
+  dispatchAndRecord(()=>store.dispatch(rotationFunc()))
+
+  return true
+}
+
+/**
+ * Read tile below, return it's type as a string
+ * The string will be the lowercase form of the TileTypeEnum
+ */
+export function readTileBelow(): string{
+  const playerPos = store.getState().gameState.player.pos
+  const tileBelow = store.getState().gameState.level[playerPos.y][playerPos.x]
+  return TileType[tileBelow].toLowerCase()
+}
+
+/**
+ * Write tile below, return true if it was successful, throw errors otherwise
+ */
+export function writeTileBelow(inputTile: string): boolean{
+  
+  if (!(inputTile.toUpperCase() in TileType)){
+    throw `${inputTile} is not a valid tile type!`
+  }
+
+  const tile: TileType = (<any>TileType)[inputTile.toUpperCase()]
+
+  store.dispatch(()=>store.dispatch(writeTileBelow()))
 
   return true
 }

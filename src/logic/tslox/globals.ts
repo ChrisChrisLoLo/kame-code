@@ -26,7 +26,7 @@ globals.define(
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return dispatchAndRecord(() => makeMovement(false))
+      return makeMovement(false)
     }
   }()
 )
@@ -39,7 +39,7 @@ globals.define(
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return dispatchAndRecord(() => makeMovement(true))
+      return makeMovement(true)
     }
   }()
 )
@@ -52,7 +52,7 @@ globals.define(
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return dispatchAndRecord(() => makeTurn(false))
+      return makeTurn(false)
     }
   }()
 )
@@ -65,9 +65,36 @@ globals.define(
     }
 
     call(interpreter: Interpreter, args: LoxValue[]) {
-      return dispatchAndRecord(() => makeTurn(true))
+      return makeTurn(true)
     }
   }()
 )
+
+globals.define(
+  "readTile",
+  new class extends Callable {
+    getArity() {
+      return 0
+    }
+
+    call(interpreter: Interpreter, args: LoxValue[]) {
+      return makeTurn(true)
+    }
+  }()
+)
+
+globals.define(
+  "writeTile",
+  new class extends Callable {
+    getArity() {
+      return 1
+    }
+
+    call(interpreter: Interpreter, args: LoxValue[]) {
+      return makeTurn(true)
+    }
+  }()
+)
+
 
 export { globals }

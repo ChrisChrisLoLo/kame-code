@@ -8,3 +8,5 @@ export function writeToBoardReducer(state: LevelData, action: PayloadAction<stri
     // newState.level newState.player.pos
     return newState
 }
+
+// export function 
