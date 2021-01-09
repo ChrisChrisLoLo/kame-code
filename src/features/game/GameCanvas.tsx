@@ -50,8 +50,8 @@ function GameCanvas(props:Props) {
       return <Sprite
         image = {tileSpriteEnumMap.get(tile)}
         scale = {TILE_SCALE}
-        x = {i*TILE_SIZE_PX}
-        y = {j*TILE_SIZE_PX}
+        x = {j*TILE_SIZE_PX}
+        y = {i*TILE_SIZE_PX}
         zIndex = {0}
         key = {`${i},${j}`}
       />

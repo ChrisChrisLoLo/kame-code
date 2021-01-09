@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { rule110Sample } from "./levels/rule110Sample";
 import { sampleLevel } from "./levels/sampleLevel";
 import { MetaGame } from "./objects/MetaGame";
 
 export const metaGameSlice = createSlice({
   name: 'game',
-  initialState: {loadedLevel: sampleLevel, hasWon: false} as MetaGame,
+  initialState: rule110Sample as MetaGame,
   reducers: {
   }
 });

@@ -1,18 +1,20 @@
-import { LevelData } from "../objects/LevelData"
 import { TileType } from '../objects/TileType';
-import { Player, Flag } from '../objects/Entities';
 import { DirectionType } from '../objects/Directions';
 import { WinCondType } from "../objects/WinCondType";
+import { MetaGame } from "../objects/MetaGame";
 
-export const sampleLevel: LevelData = {
+export const sampleLevel: MetaGame = {
+  loadedLevel: {
     level: [
-        [TileType.WHITE,TileType.WHITE],
-        [TileType.WHITE,TileType.BLUE]
+      [TileType.WHITE, TileType.WHITE],
+      [TileType.WHITE, TileType.BLUE]
     ],
     player: {
-        dir: DirectionType.SOUTH,
-        pos: {x:0,y:0}
+      dir: DirectionType.SOUTH,
+      pos: { x: 0, y: 0 }
     },
-    winCondition: WinCondType.GET_ALL_FLAGS,
-    flags: [{pos: {x:1,y:1}}]
+    flags: [{ pos: { x: 1, y: 1 } }]
+  },
+  winCondition: WinCondType.GET_ALL_FLAGS,
+  hasWon: false
 }
