@@ -15,6 +15,7 @@ import { setLevelData } from '../../logic/game/gameSlice';
 import { addLevelData, clearQueue } from '../../logic/game/playbackQueueSlice';
 import { playRecordedLevelStates } from '../../logic/replay/replayQueue';
 import { setDisplayLevelData } from '../../logic/game/gameDisplaySlice';
+import GamePlayer from './GamePlayer';
 
 export function Game() {
   const [code, setCode] = useState('');
@@ -40,7 +41,7 @@ export function Game() {
 
   return (
     <div className="flex">
-      <GameCanvas/>
+      <GamePlayer/>
       <div>
         <AceEditor
           mode="python"

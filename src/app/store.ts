@@ -1,14 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import gameReducer from '../logic/game/gameSlice'
 import gameDisplayReducer from '../logic/game/gameDisplaySlice'
 import metaGameReducer from '../logic/game/metaGameSlice'
 import playbackQueueReducer from '../logic/game/playbackQueueSlice'
 
-export default configureStore({
-  reducer: {
-    gameState: gameReducer,
-    gameDisplay: gameDisplayReducer,
-    metaGameState: metaGameReducer,
-    playbackQueue: playbackQueueReducer
-  }
+const rootReducer = combineReducers({
+  gameState: gameReducer,
+  gameDisplay: gameDisplayReducer,
+  metaGameState: metaGameReducer,
+  playbackQueue: playbackQueueReducer
 })
+
+export default configureStore({
+  reducer: rootReducer
+})
+
+export type RootState = ReturnType<typeof rootReducer>

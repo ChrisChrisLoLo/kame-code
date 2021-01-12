@@ -18,12 +18,6 @@ function mapStateToProps(state: StateProps) {
   return levelData
 }
 
-const connector = connect(mapStateToProps)
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-interface Props extends PropsFromRedux {}
-
 const STAGE_WIDTH: number = 1200
 const STAGE_HEIGHT: number = 800
 
@@ -37,15 +31,15 @@ const CONTAINER_PADDING_Y = 50
 const CONTAINER_WIDTH: number = STAGE_WIDTH - 2*CONTAINER_PADDING_X
 const CONTAINER_HEIGHT: number = STAGE_HEIGHT - 2*CONTAINER_PADDING_Y
 
-function GameCanvas(props:Props) {
+export default function GameCanvas(props:StateProps) {
   
-  const levelHeight: number = props.level.length
+  const levelHeight: number = props.gameDisplay.level.length
   if (levelHeight == 0){
     console.error('Level has no rows in it!')
   }
-  const levelWidth: number = props.level[0].length
+  const levelWidth: number = props.gameDisplay.level[0].length
 
-  const tileSprites = props.level.map((row,i) => {
+  const tileSprites = props.gameDisplay.level.map((row,i) => {
     return row.map((tile,j) => {
       return <Sprite
         image = {tileSpriteEnumMap.get(tile)}
@@ -58,7 +52,7 @@ function GameCanvas(props:Props) {
     })
   })
 
-  const flagSprites = props.flags ? props.flags.map(flag => 
+  const flagSprites = props.gameDisplay.flags ? props.gameDisplay.flags.map(flag => 
     <Sprite
       image = {sprites.flag}
       scale = {TILE_SCALE}
@@ -78,24 +72,20 @@ function GameCanvas(props:Props) {
   const turtleSprite = <Sprite
     image = {sprites.turtle}
     scale = {TILE_SCALE}
-    x={(props.player.pos.x*TILE_SIZE_PX)+TILE_SIZE_PX/2}
-    y={(props.player.pos.y*TILE_SIZE_PX)+TILE_SIZE_PX/2}
+    x={(props.gameDisplay.player.pos.x*TILE_SIZE_PX)+TILE_SIZE_PX/2}
+    y={(props.gameDisplay.player.pos.y*TILE_SIZE_PX)+TILE_SIZE_PX/2}
     pivot={[SPRITE_IMAGE_PX/2,SPRITE_IMAGE_PX/2]}
-    angle={turtleAngleDirMap.get(props.player.dir)}
+    angle={turtleAngleDirMap.get(props.gameDisplay.player.dir)}
     zIndex = {10}
   />
             
   return (
-    <div>
-      <Stage width={STAGE_WIDTH} height={STAGE_HEIGHT} style={{ width: '100%' }} options={{ backgroundColor: 0xeef1f5,  }}>
-        <Container position={[CONTAINER_PADDING_X,CONTAINER_PADDING_Y]}>
-          {tileSprites}
-          {flagSprites}
-          {turtleSprite}
-        </Container>
-      </Stage>
-    </div>
+    <Stage width={STAGE_WIDTH} height={STAGE_HEIGHT} style={{ width: '100%' }} options={{ backgroundColor: 0xeef1f5,  }}>
+      <Container position={[CONTAINER_PADDING_X,CONTAINER_PADDING_Y]}>
+        {tileSprites}
+        {flagSprites}
+        {turtleSprite}
+      </Container>
+    </Stage>
   )
 }
-
-export default connector(GameCanvas)
