@@ -14,11 +14,13 @@ import store from '../../app/store';
 import { setLevelData } from '../../logic/game/gameSlice';
 import { addLevelData, clearQueue } from '../../logic/game/playbackQueueSlice';
 import GamePlayer from './GamePlayer';
+import hasUserWon from '../../logic/game/reactHelpers/hasUserWon';
 
 export function Game() {
   const [code, setCode] = useState('')
   const [isPlaybackOn, setIsPlaybackOn] = useState(false)
   const [playbackIndex, setPlaybackIndex] = useState(0)
+  const [hasWon, setHasWon] = useState(false)
 
   function onEditorChange(newValue: string) {
     setCode(newValue);
@@ -35,14 +37,21 @@ export function Game() {
     store.dispatch(addLevelData(store.getState().gameState))
 
     runInterpreter(code)
+    
+    setHasWon(hasUserWon(store.getState().metaGameState, store.getState().gameState))
 
     setIsPlaybackOn(true)
-    // TODO: when at the end of the queue determine if the victory state has been acheived.
+    // TODO: when at the end of the queue determine if the victory state has been acheived.\
   }
 
   return (
     <div className="flex">
-      <GamePlayer isPlaybackOn={isPlaybackOn} playbackIndex={playbackIndex} setPlaybackIndex={setPlaybackIndex}/>
+      <GamePlayer
+        isPlaybackOn={isPlaybackOn}
+        playbackIndex={playbackIndex}
+        setPlaybackIndex={setPlaybackIndex}
+        hasUserWon={hasWon}
+      />
       <div>
         <AceEditor
           mode="python"
@@ -54,9 +63,6 @@ export function Game() {
         <button onClick={runCode} className="bg-green-200">
           Run
         </button>
-        {/* <button onClick={test} className="bg-green-200">
-          Run
-        </button> */}
       </div>
     </div>
   )

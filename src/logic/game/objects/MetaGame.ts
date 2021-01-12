@@ -7,5 +7,4 @@ export interface MetaGame{
   winCondition: WinCondType
   expectedLevel?: TileType[][]
   expectedOutput?: number | string
-  hasWon: boolean
 }

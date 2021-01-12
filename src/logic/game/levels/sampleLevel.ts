@@ -15,6 +15,5 @@ export const sampleLevel: MetaGame = {
     },
     flags: [{ pos: { x: 1, y: 1 } }]
   },
-  winCondition: WinCondType.GET_ALL_FLAGS,
-  hasWon: false
+  winCondition: WinCondType.GET_ALL_FLAGS
 }

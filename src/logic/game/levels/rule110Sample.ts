@@ -26,6 +26,5 @@ export const rule110Sample: MetaGame = {
     },
     flags: [{ pos: { x: 2, y: 1 } }]
   },
-  winCondition: WinCondType.GET_ALL_FLAGS,
-  hasWon: false
+  winCondition: WinCondType.GET_ALL_FLAGS
 }

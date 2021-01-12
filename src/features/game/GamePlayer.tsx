@@ -8,6 +8,7 @@ type ParentProps = {
   isPlaybackOn: boolean
   setPlaybackIndex: Function
   playbackIndex: number
+  hasUserWon: boolean
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -39,16 +40,22 @@ function GamePlayer(props:Props) {
 
   let levelDataToDisplay: LevelData
 
-  if(props.playbackQueue.length == 0){
+  if(props.playbackQueue.length === 0){
     levelDataToDisplay = props.metaGameState.loadedLevel 
   }
   else{
     levelDataToDisplay = props.playbackQueue[props.playbackIndex]
   }
 
+  let hasUserWonEl
+  if(props.playbackIndex === props.playbackQueue.length-1){
+    hasUserWonEl = props.hasUserWon ? <h1>Winner!</h1> : <h1>Try again!</h1>
+  }
+
   return (
     <div>
       <GameCanvas gameDisplay={levelDataToDisplay}/>
+      {hasUserWonEl}
     </div> 
   )
 }
