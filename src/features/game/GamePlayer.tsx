@@ -6,6 +6,8 @@ import GameCanvas from './GameCanvas';
 
 type ParentProps = {
   isPlaybackOn: boolean
+  setPlaybackIndex: Function
+  playbackIndex: number
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -23,20 +25,17 @@ const PLAYBACK_MS = 500
 
 function GamePlayer(props:Props) {
 
-  const [playbackIndex, setPlaybackIndex] = useState(0)
-
   useEffect(() => {
     console.log('init')
     const timeout = setTimeout(() => {
       console.log(props.isPlaybackOn)
       if(props.isPlaybackOn){
-        const newIndex = Math.min(playbackIndex+1,props.playbackQueue.length-1)
-        setPlaybackIndex(newIndex)
+        const newIndex = Math.min(props.playbackIndex+1,props.playbackQueue.length-1)
+        props.setPlaybackIndex(newIndex)
       }
     }, PLAYBACK_MS);
     return () => clearTimeout(timeout)
-  }, [props.isPlaybackOn, playbackIndex])
-
+  }, [props.isPlaybackOn, props.playbackIndex])
 
   let levelDataToDisplay: LevelData
 
@@ -44,7 +43,7 @@ function GamePlayer(props:Props) {
     levelDataToDisplay = props.metaGameState.loadedLevel 
   }
   else{
-    levelDataToDisplay = props.playbackQueue[playbackIndex]
+    levelDataToDisplay = props.playbackQueue[props.playbackIndex]
   }
 
   return (
