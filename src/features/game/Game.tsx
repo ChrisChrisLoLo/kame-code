@@ -18,16 +18,18 @@ import { setDisplayLevelData } from '../../logic/game/gameDisplaySlice';
 import GamePlayer from './GamePlayer';
 
 export function Game() {
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState('')
+  const [isPlaybackOn, setIsPlaybackOn] = useState(false)
 
   function onEditorChange(newValue: string) {
     setCode(newValue);
   }
 
-  async function runCode() {
+  function runCode() {
+    setIsPlaybackOn(false)
     // reset level
     store.dispatch(setLevelData(store.getState().metaGameState.loadedLevel))
-    // reset display
+    // reset display (MIGHT NOT NEED NOW)
     store.dispatch(setDisplayLevelData(store.getState().metaGameState.loadedLevel))
     // reset queue
     store.dispatch(clearQueue())
@@ -35,13 +37,14 @@ export function Game() {
     store.dispatch(addLevelData(store.getState().gameState))
 
     runInterpreter(code)
-    playRecordedLevelStates()
+    // playRecordedLevelStates()
+    setIsPlaybackOn(true)
     // TODO: when at the end of the queue determine if the victory state has been acheived.
   }
 
   return (
     <div className="flex">
-      <GamePlayer/>
+      <GamePlayer isPlaybackOn={isPlaybackOn}/>
       <div>
         <AceEditor
           mode="python"
