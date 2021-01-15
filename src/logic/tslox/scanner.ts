@@ -8,21 +8,21 @@ export interface ScanError {
 }
 
 const keywords: Record<string, TokenType> = {
-  and: TokenType.AND,
+  // '&&': TokenType.AND,
   class: TokenType.CLASS,
   else: TokenType.ELSE,
   false: TokenType.FALSE,
   for: TokenType.FOR,
-  fun: TokenType.FUN,
+  function: TokenType.FUN,
   if: TokenType.IF,
-  nil: TokenType.NIL,
-  or: TokenType.OR,
+  null: TokenType.NIL,
+  // '||': TokenType.OR,
   print: TokenType.PRINT,
   return: TokenType.RETURN,
   super: TokenType.SUPER,
   this: TokenType.THIS,
   true: TokenType.TRUE,
-  var: TokenType.VAR,
+  let: TokenType.VAR,
   while: TokenType.WHILE,
   break: TokenType.BREAK
 }
@@ -112,6 +112,20 @@ export class Scanner {
         this.addToken(
           this.match("=") ? TokenType.GREATER_EQUAL : TokenType.GREATER
         )
+        break
+      case "&":
+        if (this.match("&")) {
+          this.addToken(TokenType.AND)
+        } else {
+          this.error(this.line, `Unexpected character "&${this.peek()}"`)
+        }
+        break
+      case "|":
+        if (this.match("|")) {
+          this.addToken(TokenType.OR)
+        } else {
+          this.error(this.line, `Unexpected character "|${this.peek()}"`)
+        }
         break
       case "/":
         if (this.match("/")) {
