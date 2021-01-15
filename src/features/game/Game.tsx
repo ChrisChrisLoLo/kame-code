@@ -51,6 +51,7 @@ export function Game() {
           isPlaybackOn={isPlaybackOn}
           playbackIndex={playbackIndex}
           setPlaybackIndex={setPlaybackIndex}
+          setIsPlaybackOn={setIsPlaybackOn}
           hasUserWon={hasWon}
         />
       </div>
