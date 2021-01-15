@@ -6,7 +6,7 @@ import AceEditor from "react-ace";
 // for javascript 
 // https://github.com/securingsincity/react-ace/issues/725#issuecomment-543109155
 
-import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
 
 import { runInterpreter } from '../../logic/tslox/lox';
@@ -45,16 +45,20 @@ export function Game() {
   }
 
   return (
-    <div className="flex">
-      <GamePlayer
-        isPlaybackOn={isPlaybackOn}
-        playbackIndex={playbackIndex}
-        setPlaybackIndex={setPlaybackIndex}
-        hasUserWon={hasWon}
-      />
-      <div>
+    <div className="flex bg-green-400">
+      <div className="flex-auto m-3">
+        <GamePlayer
+          isPlaybackOn={isPlaybackOn}
+          playbackIndex={playbackIndex}
+          setPlaybackIndex={setPlaybackIndex}
+          hasUserWon={hasWon}
+        />
+      </div>
+      <div className="flex-auto m-3">
         <AceEditor
-          mode="python"
+          className="rounded"
+          style={{fontSize: "12pt"}}
+          mode="javascript"
           theme="monokai"
           onChange={onEditorChange}
           name="UNIQUE_ID_OF_DIV"

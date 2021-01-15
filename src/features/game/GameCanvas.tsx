@@ -80,7 +80,7 @@ export default function GameCanvas(props:StateProps) {
   />
             
   return (
-    <Stage width={STAGE_WIDTH} height={STAGE_HEIGHT} style={{ width: '100%' }} options={{ backgroundColor: 0xeef1f5,  }}>
+    <Stage className={'rounded'} width={STAGE_WIDTH} height={STAGE_HEIGHT} style={{ width: '100%' }} options={{ backgroundColor: 0xeef1f5,  }}>
       <Container position={[CONTAINER_PADDING_X,CONTAINER_PADDING_Y]}>
         {tileSprites}
         {flagSprites}
