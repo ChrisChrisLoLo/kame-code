@@ -63,11 +63,6 @@ function GamePlayer(props:Props) {
     levelDataToDisplay = props.playbackQueue[props.playbackIndex]
   }
 
-  let hasUserWonEl
-  if(props.playbackIndex === props.playbackQueue.length-1){
-    hasUserWonEl = props.hasUserWon ? <h1>Winner!</h1> : <h1>Try again!</h1>
-  }
-
   let playPauseIcon
   if(props.isPlaybackOn){
     playPauseIcon = 
@@ -86,7 +81,11 @@ function GamePlayer(props:Props) {
 
   return (
     <div>
-      <GameCanvas gameDisplay={levelDataToDisplay}/>
+      <GameCanvas 
+        gameDisplay={levelDataToDisplay} 
+        hasGameEnded={props.playbackIndex === props.playbackQueue.length-1}
+        hasUserWon={props.hasUserWon}
+      />
       <input 
         className="w-full"
         type="range"
@@ -128,7 +127,7 @@ function GamePlayer(props:Props) {
           </svg>
         </button>
       </div>
-      {hasUserWonEl}
+      {/* {hasUserWonEl} */}
     </div> 
   )
 }
