@@ -18,11 +18,9 @@ const STAGE_WIDTH: number = 1200
 const STAGE_HEIGHT: number = 800
 
 const SPRITE_IMAGE_PX: number = 16
-const TILE_SIZE_PX: number = 64
-const TILE_SCALE: number = TILE_SIZE_PX/SPRITE_IMAGE_PX
 
-const CONTAINER_PADDING_X = 50
-const CONTAINER_PADDING_Y = 50
+const CONTAINER_PADDING_X = 10
+const CONTAINER_PADDING_Y = 10
 
 const CONTAINER_WIDTH: number = STAGE_WIDTH - 2*CONTAINER_PADDING_X
 const CONTAINER_HEIGHT: number = STAGE_HEIGHT - 2*CONTAINER_PADDING_Y
@@ -33,14 +31,22 @@ export default function GameCanvas(props:StateProps) {
   if (levelHeight === 0){
     console.error('Level has no rows in it!')
   }
+  const levelWidth: number = props.gameDisplay.level[0].length
+
+  const tileScale = calcTileScale(levelHeight,levelWidth)
+  const tileSizeInPx = SPRITE_IMAGE_PX * tileScale
+
+  const [levelOffsetX, levelOffsetY] = calcLevelOffset(levelHeight,levelWidth,tileSizeInPx)
+  // const [levelOffsetX, levelOffsetY] = [40,40]
+
 
   const tileSprites = props.gameDisplay.level.map((row,i) => {
     return row.map((tile,j) => {
       return <Sprite
         image = {tileSpriteEnumMap.get(tile)}
-        scale = {TILE_SCALE}
-        x = {j*TILE_SIZE_PX}
-        y = {i*TILE_SIZE_PX}
+        scale = {tileScale}
+        x = {j*tileSizeInPx+levelOffsetX}
+        y = {i*tileSizeInPx+levelOffsetY}
         zIndex = {0}
         key = {`${i},${j}`}
       />
@@ -50,9 +56,9 @@ export default function GameCanvas(props:StateProps) {
   const flagSprites = props.gameDisplay.flags ? props.gameDisplay.flags.map(flag => 
     <Sprite
       image = {sprites.flag}
-      scale = {TILE_SCALE}
-      x={flag.pos.x*TILE_SIZE_PX}
-      y={flag.pos.y*TILE_SIZE_PX}
+      scale = {tileScale}
+      x={flag.pos.x*tileSizeInPx+levelOffsetX}
+      y={flag.pos.y*tileSizeInPx+levelOffsetY}
       zIndex = {5}
       key = {`${flag.pos.x},${flag.pos.y}`}
     />
@@ -66,9 +72,9 @@ export default function GameCanvas(props:StateProps) {
   // because pivot causes a offset in the sprite, a readjustment needs to be made to the x and y
   const turtleSprite = <Sprite
     image = {sprites.turtle}
-    scale = {TILE_SCALE}
-    x={(props.gameDisplay.player.pos.x*TILE_SIZE_PX)+TILE_SIZE_PX/2}
-    y={(props.gameDisplay.player.pos.y*TILE_SIZE_PX)+TILE_SIZE_PX/2}
+    scale = {tileScale}
+    x={(props.gameDisplay.player.pos.x*tileSizeInPx)+tileSizeInPx/2+levelOffsetX}
+    y={(props.gameDisplay.player.pos.y*tileSizeInPx)+tileSizeInPx/2+levelOffsetY}
     pivot={[SPRITE_IMAGE_PX/2,SPRITE_IMAGE_PX/2]}
     angle={turtleAngleDirMap.get(props.gameDisplay.player.dir)}
     zIndex = {10}
@@ -97,8 +103,6 @@ export default function GameCanvas(props:StateProps) {
         }
       />
   }
-  
-            
   return (
     <Stage className={'rounded'} width={STAGE_WIDTH} height={STAGE_HEIGHT} style={{ width: '100%' }} options={{ backgroundColor: 0xeef1f5}}>
       <Container position={[CONTAINER_PADDING_X,CONTAINER_PADDING_Y]}>
@@ -109,4 +113,25 @@ export default function GameCanvas(props:StateProps) {
       </Container>
     </Stage>
   )
+}
+
+/**
+ * Return the scale of the tiles.
+ * This scale is the max scale that will fit within the container, or equal to 1, depending on which is largest
+ * @param levelHeight 
+ * @param levelWidth 
+ */
+function calcTileScale(levelHeight:number, levelWidth:number): number{
+  return Math.max(1,
+    Math.floor(Math.min(CONTAINER_WIDTH/levelWidth,CONTAINER_HEIGHT/levelHeight)/SPRITE_IMAGE_PX)
+  )
+}
+
+function calcLevelOffset(levelHeight:number, levelWidth:number, tileSizeInPx: number): number[]{
+  const yOffSet = (CONTAINER_HEIGHT-levelHeight*tileSizeInPx)/2
+  const xOffSet = (CONTAINER_WIDTH-levelWidth*tileSizeInPx)/2
+  console.log([xOffSet,yOffSet])
+  console.log(levelHeight*tileSizeInPx)
+  console.log(CONTAINER_HEIGHT)
+  return [xOffSet,yOffSet]
 }

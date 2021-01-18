@@ -47,6 +47,7 @@ export function Game() {
   return (
     <div className="flex bg-green-400">
       <div className="flex-auto m-3">
+        <h2>Level Title</h2>
         <GamePlayer
           isPlaybackOn={isPlaybackOn}
           playbackIndex={playbackIndex}
@@ -58,7 +59,7 @@ export function Game() {
       <div className="flex-auto m-3">
         <AceEditor
           className="rounded"
-          style={{fontSize: "12pt"}}
+          style={{fontSize: "13pt"}}
           mode="javascript"
           theme="monokai"
           onChange={onEditorChange}

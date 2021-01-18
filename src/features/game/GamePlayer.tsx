@@ -46,12 +46,9 @@ function GamePlayer(props:Props) {
   }
 
   useEffect(() => {
-    console.log('init')
     const timeout = setTimeout(() => {
-      console.log(props.playbackIndex)
       if(props.isPlaybackOn){
         const newIndex = Math.min(props.playbackIndex+1,props.playbackQueue.length-1)
-        console.log('new Ind: '+ newIndex)
         props.setPlaybackIndex(newIndex)
       }
     }, PLAYBACK_MS);
