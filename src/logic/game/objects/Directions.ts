@@ -1,8 +1,8 @@
 export enum DirectionType {
-  NORTH,
-  EAST,
-  SOUTH,
-  WEST
+  NORTH = "N",
+  EAST = "E",
+  SOUTH = "S",
+  WEST = "W"
 }
 
 // used to calculate rotations

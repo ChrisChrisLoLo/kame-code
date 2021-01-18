@@ -37,7 +37,7 @@ export function makeTurn(isCounterClockwise: boolean): boolean{
 export function readTileBelow(): string{
   const playerPos = store.getState().gameState.player.pos
   const tileBelow = store.getState().gameState.level[playerPos.y][playerPos.x]
-  return TileType[tileBelow].toLowerCase()
+  return tileBelow
 }
 
 /**
