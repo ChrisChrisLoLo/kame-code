@@ -3,7 +3,7 @@
 
 import { Scanner } from "./scanner"
 import { Parser } from "./parser"
-import { Interpreter, stringify, LoxValue } from "./interpreter"
+import { Interpreter, LoxValue } from "./interpreter"
 import { Resolver } from "./resolver"
 import { AstPrinter } from "./ast-printer"
 import { Token } from "./token"

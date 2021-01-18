@@ -12,7 +12,7 @@ export function makeMovement(isBackward: boolean): boolean{
   const movementFunc = isBackward ? backward : forward
 
   dispatchAndRecord(()=>store.dispatch(movementFunc()))
-  const didMove: boolean = JSON.stringify(initPosition) != JSON.stringify(store.getState().gameState.player.pos)
+  const didMove: boolean = JSON.stringify(initPosition) !== JSON.stringify(store.getState().gameState.player.pos)
 
   return didMove
 }
@@ -22,7 +22,6 @@ export function makeMovement(isBackward: boolean): boolean{
  * @param isCounterClockwise 
  */
 export function makeTurn(isCounterClockwise: boolean): boolean{
-  const initPosition = store.getState().gameState.player.pos
   const rotationFunc = isCounterClockwise ? rotCounterClockwise : rotClockwise
 
   dispatchAndRecord(()=>store.dispatch(rotationFunc()))
@@ -46,10 +45,10 @@ export function readTileBelow(): string{
 export function writeTileBelow(inputTile: string): boolean{
   
   if (!(inputTile.toUpperCase() in TileType)){
-    throw `${inputTile} is not a valid tile type!`
+    throw Error(`${inputTile} is not a valid tile type!`)
   }
 
-  const tile: TileType = (<any>TileType)[inputTile.toUpperCase()]
+  const tile: TileType = (TileType as any)[inputTile.toUpperCase()]
 
   dispatchAndRecord(()=>store.dispatch(writeBelow(tile)))
 

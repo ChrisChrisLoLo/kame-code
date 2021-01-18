@@ -1,5 +1,5 @@
 import { isDeepEquality, deepCopy } from "../../utils";
-import { DirectionType, directionArray } from "../objects/Directions";
+import { DirectionType } from "../objects/Directions";
 import { LevelData } from "../objects/LevelData";
 import { Position } from "../objects/Postion";
 import { TileType } from "../objects/TileType";
@@ -43,7 +43,7 @@ function isValidPlayerPosition(playerPos: Position, level: TileType[][]): boolea
 
   if (playerPos.y >= 0 && playerPos.y < n) {
     if (playerPos.x >= 0 && playerPos.x < m) {
-      if (level[playerPos.y][playerPos.x] != TileType.EMPTY) {
+      if (level[playerPos.y][playerPos.x] !== TileType.EMPTY) {
         return true
       }
     }

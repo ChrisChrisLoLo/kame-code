@@ -13,6 +13,40 @@ export class ParseError extends Error {
   }
 }
 
+enum ContextType {
+  LOOP_BODY
+}
+
+export class Context {
+  private map: Map<ContextType, boolean[]> = new Map()
+
+  push(type: ContextType): void {
+    const ctx = this.map.get(type)
+
+    if (ctx) {
+      ctx.push(true)
+    } else {
+      this.map.set(type, [true])
+    }
+  }
+
+  pop(type: ContextType): void {
+    const ctx = this.map.get(type)
+
+    if (!ctx) {
+      throw new Error("Context was not entered")
+    }
+
+    ctx.pop()
+  }
+
+  check(type: ContextType): boolean {
+    const ctx = this.map.get(type)
+
+    return !!ctx && ctx.length > 0
+  }
+}
+
 export class Parser {
   private tokens: Token[]
   private current: number = 0
@@ -472,39 +506,5 @@ export class Parser {
 
   private isAtEnd(): boolean {
     return this.peek().type === TokenType.EOF
-  }
-}
-
-enum ContextType {
-  LOOP_BODY
-}
-
-export class Context {
-  private map: Map<ContextType, boolean[]> = new Map()
-
-  push(type: ContextType): void {
-    const ctx = this.map.get(type)
-
-    if (ctx) {
-      ctx.push(true)
-    } else {
-      this.map.set(type, [true])
-    }
-  }
-
-  pop(type: ContextType): void {
-    const ctx = this.map.get(type)
-
-    if (!ctx) {
-      throw new Error("Context was not entered")
-    }
-
-    ctx.pop()
-  }
-
-  check(type: ContextType): boolean {
-    const ctx = this.map.get(type)
-
-    return !!ctx && ctx.length > 0
   }
 }

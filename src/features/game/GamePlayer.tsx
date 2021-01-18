@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../app/store';
 import { LevelData } from '../../logic/game/objects/LevelData';

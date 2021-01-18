@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import GameCanvas from './GameCanvas'
 
 import AceEditor from "react-ace";
 

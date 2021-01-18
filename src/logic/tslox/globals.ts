@@ -1,7 +1,7 @@
 import { Environment } from "./environment"
 import { Callable } from "./callable"
-import { Interpreter, LoxValue, RuntimeError } from "./interpreter"
-import { dispatchAndRecord, makeMovement, makeTurn, readTileBelow, writeTileBelow } from "../game/actions/playerActions"
+import { Interpreter, LoxValue } from "./interpreter"
+import { makeMovement, makeTurn, readTileBelow, writeTileBelow } from "../game/actions/playerActions"
 
 const globals = new Environment()
 

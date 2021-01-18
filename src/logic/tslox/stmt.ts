@@ -72,7 +72,7 @@ export class While implements Stmt {
 }
 
 export class Break implements Stmt {
-  constructor() {}
+  // constructor() {}
 
   accept<T>(visitor: Visitor<T>): T {
     return visitor.visitBreakStmt(this)
