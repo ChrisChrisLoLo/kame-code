@@ -29,7 +29,7 @@ export function Game() {
     setIsPlaybackOn(false)
     setPlaybackIndex(0)
     // reset level
-    store.dispatch(setLevelData(store.getState().metaGameState.loadedLevel))
+    store.dispatch(setLevelData(store.getState().metaGameState.testCases[store.getState().metaGameState.currentTestCase].levelData))
     // reset queue
     store.dispatch(clearQueue())
     // add initial state to the queue

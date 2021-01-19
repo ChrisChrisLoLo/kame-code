@@ -1,10 +1,10 @@
-import { LevelData } from "./LevelData";
-import { TileType } from "./TileType";
+import { TestCase } from "./TestCase";
 import { WinCondType } from "./WinCondType";
 
 export interface MetaGame{
-  loadedLevel: LevelData
+  // Index of the current test case being used.
+  // This is to reference what test case should be reloaded from
+  currentTestCase: number
   winCondition: WinCondType
-  expectedLevel?: TileType[][]
-  expectedOutput?: number | string
+  testCases: TestCase[]
 }

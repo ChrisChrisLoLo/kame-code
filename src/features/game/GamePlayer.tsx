@@ -58,7 +58,7 @@ function GamePlayer(props:Props) {
   let levelDataToDisplay: LevelData
 
   if(props.playbackQueue.length === 0){
-    levelDataToDisplay = props.metaGameState.loadedLevel 
+    levelDataToDisplay = props.metaGameState.testCases[props.metaGameState.currentTestCase].levelData 
   }
   else{
     levelDataToDisplay = props.playbackQueue[props.playbackIndex]

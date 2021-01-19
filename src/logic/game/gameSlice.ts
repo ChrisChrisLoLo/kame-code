@@ -10,7 +10,7 @@ import { setLevelDataReducer } from './reducers/setLevel'
 
 export const gameSlice = createSlice({
     name: 'game',
-    initialState: rule110Sample.loadedLevel as LevelData,
+    initialState: rule110Sample.testCases[0].levelData as LevelData,
     reducers: {
         forward: forwardReducer,
         backward: backwardReducer,
