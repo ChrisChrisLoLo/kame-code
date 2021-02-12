@@ -44,30 +44,36 @@ export function Game() {
   }
 
   return (
-    <div className="flex bg-green-400">
-      <div className="flex-auto m-3">
-        <h2>Level Title</h2>
-        <GamePlayer
-          isPlaybackOn={isPlaybackOn}
-          playbackIndex={playbackIndex}
-          setPlaybackIndex={setPlaybackIndex}
-          setIsPlaybackOn={setIsPlaybackOn}
-          hasUserWon={hasWon}
-        />
+    <div>
+      <div className="flex bg-green-400">
+        <h2>
+          Level Title
+        </h2>
       </div>
-      <div className="flex-auto m-3">
-        <AceEditor
-          className="rounded"
-          style={{fontSize: "13pt"}}
-          mode="javascript"
-          theme="monokai"
-          onChange={onEditorChange}
-          name="UNIQUE_ID_OF_DIV"
-          editorProps={{ $blockScrolling: true }}
-        />
-        <button onClick={runCode} className="bg-green-200">
-          Run
-        </button>
+      <div className="flex bg-green-400">
+        <div className="flex-auto m-3">
+          <GamePlayer
+            isPlaybackOn={isPlaybackOn}
+            playbackIndex={playbackIndex}
+            setPlaybackIndex={setPlaybackIndex}
+            setIsPlaybackOn={setIsPlaybackOn}
+            hasUserWon={hasWon}
+          />
+        </div>
+        <div className="flex-auto m-3">
+          <AceEditor
+            className="rounded"
+            style={{fontSize: "13pt"}}
+            mode="javascript"
+            theme="monokai"
+            onChange={onEditorChange}
+            name="UNIQUE_ID_OF_DIV"
+            editorProps={{ $blockScrolling: true }}
+          />
+          <button onClick={runCode} className="bg-green-200">
+            Run
+          </button>
+        </div>
       </div>
     </div>
   )
