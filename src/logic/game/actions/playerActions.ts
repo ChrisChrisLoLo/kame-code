@@ -44,11 +44,11 @@ export function readTileBelow(): string{
  */
 export function writeTileBelow(inputTile: string): boolean{
   
-  if (!(inputTile.toUpperCase() in TileType)){
+  if (!(inputTile in TileType)){
     throw Error(`${inputTile} is not a valid tile type!`)
   }
 
-  const tile: TileType = (TileType as any)[inputTile.toUpperCase()]
+  const tile: TileType = (TileType as any)[inputTile]
 
   dispatchAndRecord(()=>store.dispatch(writeBelow(tile)))
 

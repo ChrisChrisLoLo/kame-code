@@ -1,4 +1,5 @@
 /**
+ * ! Deprecated: Big performance implications if this is used several times. Should be removed whenever possible
  * Convert any TS object into a plan JS object. Redux does not play nicely with TS objects.
  * @param object Any TS object
  */

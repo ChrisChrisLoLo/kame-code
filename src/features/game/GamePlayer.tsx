@@ -13,7 +13,7 @@ type ParentProps = {
   playbackQueue: LevelData[]
 }
 
-const PLAYBACK_MS = 500
+const PLAYBACK_MS = 25
 
 export default function GamePlayer(props:ParentProps) {
 
@@ -43,7 +43,7 @@ export default function GamePlayer(props:ParentProps) {
       }
     }, PLAYBACK_MS);
     return () => clearTimeout(timeout)
-  }, [props.isPlaybackOn, props.playbackIndex, props.playbackQueue])
+  }, [props.isPlaybackOn, props.playbackIndex])
 
   let levelDataToDisplay: LevelData
 
