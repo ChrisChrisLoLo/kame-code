@@ -17,6 +17,7 @@ import { addLevelData, clearQueue } from '../../logic/game/playbackQueueSlice';
 import GamePlayer from './GamePlayer';
 import hasUserWon from '../../logic/game/reactHelpers/hasUserWon';
 import { metaGameSlice } from '../../logic/game/metaGameSlice';
+import LevelTestCases from './LevelTestCases';
 
 const mapStateToProps = (state: RootState) => ({
   metaGameState: state.metaGameState,
@@ -89,7 +90,7 @@ function Game(props: Props) {
           <button onClick={runCode} className="bg-green-200">
             Run
           </button>
-          {/* <TestCases/> */}
+          <LevelTestCases metaGameState={props.metaGameState}/>
         </div>
       </div>
     </div>
