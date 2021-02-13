@@ -43,7 +43,7 @@ export default function GamePlayer(props:ParentProps) {
       }
     }, PLAYBACK_MS);
     return () => clearTimeout(timeout)
-  }, [props.isPlaybackOn, props.playbackIndex])
+  }, [props.isPlaybackOn, props.playbackIndex, props.playbackQueue])
 
   let levelDataToDisplay: LevelData
 
