@@ -82,7 +82,7 @@ export default function GameCanvas(props:StateProps) {
 
   let endText
   if(props.hasGameEnded){
-    const endString: string = props.hasUserWon ? 'Level Complete!' : 'Try Again'
+    const endString: string = props.hasUserWon ? 'Test Passed!' : 'Try Again'
     endText = 
       <Text
         text={endString} 
@@ -130,8 +130,8 @@ function calcTileScale(levelHeight:number, levelWidth:number): number{
 function calcLevelOffset(levelHeight:number, levelWidth:number, tileSizeInPx: number): number[]{
   const yOffSet = (CONTAINER_HEIGHT-levelHeight*tileSizeInPx)/2
   const xOffSet = (CONTAINER_WIDTH-levelWidth*tileSizeInPx)/2
-  console.log([xOffSet,yOffSet])
-  console.log(levelHeight*tileSizeInPx)
-  console.log(CONTAINER_HEIGHT)
+  // console.log([xOffSet,yOffSet])
+  // console.log(levelHeight*tileSizeInPx)
+  // console.log(CONTAINER_HEIGHT)
   return [xOffSet,yOffSet]
 }
