@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import { LevelData } from '../../logic/game/objects/LevelData';
-import { MetaGame } from '../../logic/game/objects/MetaGame';
 import GameCanvas from './GameCanvas';
 
 type ParentProps = {
@@ -10,7 +9,7 @@ type ParentProps = {
   setPlaybackIndex: Function
   playbackIndex: number
   hasUserWon: boolean
-  metaGameState: MetaGame
+  initialLevelState: LevelData
   playbackQueue: LevelData[]
 }
 
@@ -49,7 +48,8 @@ export default function GamePlayer(props:ParentProps) {
   let levelDataToDisplay: LevelData
 
   if(props.playbackQueue.length === 0){
-    levelDataToDisplay = props.metaGameState.testCases[props.metaGameState.currentTestCase].levelData 
+    // Show initial level state
+    levelDataToDisplay = props.initialLevelState
   }
   else{
     levelDataToDisplay = props.playbackQueue[props.playbackIndex]

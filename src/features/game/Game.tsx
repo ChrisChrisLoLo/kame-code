@@ -16,8 +16,7 @@ import { setLevelData } from '../../logic/game/gameSlice';
 import { addLevelData, clearQueue } from '../../logic/game/playbackQueueSlice';
 import GamePlayer from './GamePlayer';
 import hasUserWon from '../../logic/game/reactHelpers/hasUserWon';
-import { metaGameSlice } from '../../logic/game/metaGameSlice';
-import LevelTestCases from './LevelTestCases';
+import LevelTestCaseSelector from './LevelTestCaseSelector';
 
 const mapStateToProps = (state: RootState) => ({
   metaGameState: state.metaGameState,
@@ -35,24 +34,34 @@ function Game(props: Props) {
   const [isPlaybackOn, setIsPlaybackOn] = useState(false)
   const [playbackIndex, setPlaybackIndex] = useState(0)
   const [hasWon, setHasWon] = useState(false)
+  // indices of test cases that have passed
+  const [testCasesPassed, setTestCasesPassed] = useState<number[]>([])
+
+  const [currentTestIndex, setCurrentTestIndex] = useState(0)
 
   function onEditorChange(newValue: string) {
     setCode(newValue);
   }
 
-  function runCode() {
+  function runCode(testIndex: number) {
     setIsPlaybackOn(false)
     setPlaybackIndex(0)
+    // set test case
+    setCurrentTestIndex(testIndex)
     // reset level
-    store.dispatch(setLevelData(store.getState().metaGameState.testCases[store.getState().metaGameState.currentTestCase].levelData))
+    store.dispatch(setLevelData(store.getState().metaGameState.testCases[testIndex].levelData))
     // reset queue
     store.dispatch(clearQueue())
     // add initial state to the queue
     store.dispatch(addLevelData(store.getState().gameState))
 
     runInterpreter(code)
+
+    const userHasWon: boolean = hasUserWon(store.getState().metaGameState, store.getState().gameState, testIndex)
     
-    setHasWon(hasUserWon(store.getState().metaGameState, store.getState().gameState))
+    setHasWon(userHasWon)
+
+    if (userHasWon) setTestCasesPassed([...testCasesPassed, testIndex])
 
     setIsPlaybackOn(true)
     // TODO: when at the end of the queue determine if the victory state has been acheived.\
@@ -73,7 +82,7 @@ function Game(props: Props) {
             setPlaybackIndex={setPlaybackIndex}
             setIsPlaybackOn={setIsPlaybackOn}
             hasUserWon={hasWon}
-            metaGameState={props.metaGameState}
+            initialLevelState={props.metaGameState.testCases[currentTestIndex].levelData}
             playbackQueue={props.playbackQueue}
           />
         </div>
@@ -87,10 +96,15 @@ function Game(props: Props) {
             name="UNIQUE_ID_OF_DIV"
             editorProps={{ $blockScrolling: true }}
           />
-          <button onClick={runCode} className="bg-green-200">
+          {/* <button onClick={runCode} className="bg-green-200">
             Run
-          </button>
-          <LevelTestCases metaGameState={props.metaGameState}/>
+          </button> */}
+          <LevelTestCaseSelector 
+            metaGameState={props.metaGameState}
+            testCasesPassed={testCasesPassed}
+            setTestCasesPassed={setTestCasesPassed}
+            runCode={runCode}
+          />
         </div>
       </div>
     </div>

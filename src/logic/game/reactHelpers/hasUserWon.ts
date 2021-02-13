@@ -8,12 +8,12 @@ import { WinCondType } from "../objects/WinCondType"
  * @param metaGame 
  * @param lastGameState 
  */
-export default function hasUserWon(metaGame: MetaGame, lastGameState: LevelData): boolean{
+export default function hasUserWon(metaGame: MetaGame, lastGameState: LevelData, testIndex: number): boolean{
   switch(metaGame.winCondition){
     case WinCondType.GET_ALL_FLAGS:
       return lastGameState.flags?.length === 0
     case WinCondType.MODIFY_BOARD:
-      return isDeepEquality(metaGame.testCases[metaGame.currentTestCase].expectedLevel, lastGameState.level)
+      return isDeepEquality(metaGame.testCases[testIndex].expectedLevel, lastGameState.level)
     default:
       throw new Error(`Win condition ${WinCondType[metaGame.winCondition]} has not yet been implemented!`)
   }

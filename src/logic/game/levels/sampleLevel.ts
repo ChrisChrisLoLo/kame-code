@@ -4,7 +4,6 @@ import { WinCondType } from "../objects/WinCondType";
 import { MetaGame } from "../objects/MetaGame";
 
 export const sampleLevel: MetaGame = {
-  currentTestCase: 0,
   testCases:[
     {
       name:'base case',
