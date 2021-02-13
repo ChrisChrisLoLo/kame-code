@@ -13,7 +13,7 @@ export function backwardReducer(state: LevelData): LevelData {
 }
 
 function movementReducer(state: LevelData, isBackwards: boolean){
-  const newState: LevelData = deepCopy(state);
+  const newState: LevelData = state;
 
   newState.player.pos = { ...calcMovement(newState.player.dir, newState.player.pos, isBackwards) }
 
@@ -68,20 +68,3 @@ function calcMovement(dir: DirectionType, pos: Position, isBackwards: boolean): 
       throw new Error("Invalid position set")
   }
 }
-
-
-// export function writeTileReducer(state: LevelData): LevelData{
-//   const newState: LevelData = deepCopy(state)
-//   newState.player
-//   return newState
-// }
-
-// export function readTileReducer(state: LevelData): LevelData{
-//   const newState: LevelData = deepCopy(state)
-//   return newState
-// }
-
-// function tileReducer(state: LevelData, isRead: boolean): LevelData {
-//   const newState: LevelData = deepCopy(state)
-//   return newState
-// }
