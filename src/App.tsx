@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css'
 
-import {Game} from './features/game/Game'
+import Game from './features/game/Game'
 
 import 'ace-builds/webpack-resolver'
 

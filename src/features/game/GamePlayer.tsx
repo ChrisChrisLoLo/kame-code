@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../app/store';
 import { LevelData } from '../../logic/game/objects/LevelData';
+import { MetaGame } from '../../logic/game/objects/MetaGame';
 import GameCanvas from './GameCanvas';
 
 type ParentProps = {
@@ -10,22 +11,13 @@ type ParentProps = {
   setPlaybackIndex: Function
   playbackIndex: number
   hasUserWon: boolean
+  metaGameState: MetaGame
+  playbackQueue: LevelData[]
 }
-
-const mapStateToProps = (state: RootState) => ({
-  metaGameState: state.metaGameState,
-  playbackQueue: state.playbackQueue
-})
-
-const connector = connect(mapStateToProps)
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-type Props = PropsFromRedux & ParentProps
 
 const PLAYBACK_MS = 500
 
-function GamePlayer(props:Props) {
+export default function GamePlayer(props:ParentProps) {
 
   function stepBack(){
     props.setIsPlaybackOn(false)
@@ -130,5 +122,3 @@ function GamePlayer(props:Props) {
     </div> 
   )
 }
-
-export default connector(GamePlayer)

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { connect, ConnectedProps } from 'react-redux';
+
 import AceEditor from "react-ace";
 
 // for javascript 
@@ -9,13 +11,25 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
 
 import { runInterpreter } from '../../logic/tslox/lox';
-import store from '../../app/store';
+import store, { RootState } from '../../app/store';
 import { setLevelData } from '../../logic/game/gameSlice';
 import { addLevelData, clearQueue } from '../../logic/game/playbackQueueSlice';
 import GamePlayer from './GamePlayer';
 import hasUserWon from '../../logic/game/reactHelpers/hasUserWon';
+import { metaGameSlice } from '../../logic/game/metaGameSlice';
 
-export function Game() {
+const mapStateToProps = (state: RootState) => ({
+  metaGameState: state.metaGameState,
+  playbackQueue: state.playbackQueue
+})
+
+const connector = connect(mapStateToProps)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type Props = PropsFromRedux
+
+function Game(props: Props) {
   const [code, setCode] = useState('')
   const [isPlaybackOn, setIsPlaybackOn] = useState(false)
   const [playbackIndex, setPlaybackIndex] = useState(0)
@@ -58,6 +72,8 @@ export function Game() {
             setPlaybackIndex={setPlaybackIndex}
             setIsPlaybackOn={setIsPlaybackOn}
             hasUserWon={hasWon}
+            metaGameState={props.metaGameState}
+            playbackQueue={props.playbackQueue}
           />
         </div>
         <div className="flex-auto m-3">
@@ -73,8 +89,11 @@ export function Game() {
           <button onClick={runCode} className="bg-green-200">
             Run
           </button>
+          {/* <TestCases/> */}
         </div>
       </div>
     </div>
   )
 }
+
+export default connector(Game)
